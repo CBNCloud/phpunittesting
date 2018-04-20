@@ -29,16 +29,7 @@
         "storageAccountName": {
             "type": "string"
         },
-        "storageAccountType": {
-            "type": "string"
-        },
-        "addressPrefix": {
-            "type": "string"
-        },
         "subnetName": {
-            "type": "string"
-        },
-        "subnetPrefix": {
             "type": "string"
         },
         "publicIpAddressName": {
@@ -49,7 +40,7 @@
         }
     },
     "variables": {
-        "vnetId": "[resourceId('baru','Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "vnetId": "[resourceId('myRG101','Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
     },
     "resources": [
@@ -59,8 +50,7 @@
             "apiVersion": "2015-06-15",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]",
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
             ],
             "properties": {
                 "osProfile": {
@@ -81,7 +71,7 @@
                     "osDisk": {
                         "createOption": "fromImage",
                         "vhd": {
-                            "uri": "[concat(concat(reference(resourceId('baru', 'Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'), parameters('virtualMachineName'), '20180420155616.vhd')]"
+                            "uri": "[concat(concat(reference(resourceId('RG-ACA', 'Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'), parameters('virtualMachineName'), '20180420161047.vhd')]"
                         },
                         "name": "[parameters('virtualMachineName')]"
                     },
@@ -97,42 +87,11 @@
             }
         },
         {
-            "name": "[parameters('storageAccountName')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
-            "properties": {
-                "accountType": "[parameters('storageAccountType')]"
-            }
-        },
-        {
-            "name": "[parameters('virtualNetworkName')]",
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[parameters('addressPrefix')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[parameters('subnetName')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('subnetPrefix')]"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "name": "[parameters('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2015-06-15",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
                 "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]",
                 "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]"
             ],
@@ -146,13 +105,13 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[resourceId('baru','Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
+                                "id": "[resourceId('myRG101','Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
                             }
                         }
                     }
                 ],
                 "networkSecurityGroup": {
-                    "id": "[resourceId('baru', 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+                    "id": "[resourceId('myRG101', 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
                 }
             }
         },
