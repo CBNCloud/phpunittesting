@@ -18,7 +18,8 @@ New-AzureRmResourceGroup `
 
 - **Create variables to store the storage account name and the storage account SKU information**
 ```ps1
-# $StorageAccountName = "mystorageaccount5"
+# 
+$StorageAccountName = "mystorageaccount5"
 $SkuName = "Standard_LRS"
  
 # Create a new storage account
@@ -37,7 +38,8 @@ Set-AzureRmCurrentStorageAccount `
 
 - **# Create a storage container to store the virtual machine image**
 ```ps1
-# $containerName = "osdisk$(Get-Random)"
+# 
+$containerName = "osdisk$(Get-Random)"
 $container = New-AzureStorageContainer `
   -Name $containerName `
   -Permission Blob `
