@@ -18,7 +18,7 @@ New-AzureRmResourceGroup `
 
 - **Create variables to store the storage account name and the storage account SKU information**
 ```ps1
-# 
+
 $StorageAccountName = "mystorageaccount5"
 $SkuName = "Standard_LRS"
  
@@ -38,10 +38,10 @@ Set-AzureRmCurrentStorageAccount `
 
 - **# Create a storage container to store the virtual machine image**
 ```ps1
-# 
 $containerName = "osdisk$(Get-Random)"
 $container = New-AzureStorageContainer `
   -Name $containerName `
   -Permission Blob `
   -Verbose
 ```
+- Full Scripting Create vm no template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1)
