@@ -45,3 +45,5 @@ $container = New-AzureStorageContainer `
   -Verbose
 ```
 - Full Scripting Create vm no template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1)
+
+- Full Scripting Installasi PowerShell template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1)
