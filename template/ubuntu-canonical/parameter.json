@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "jkt"
+        },
+        "virtualMachineName": {
+            "value": "cbncloud"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D1_v2"
+        },
+        "adminUsername": {
+            "value": "cbncloud"
+        },
+        "virtualNetworkName": {
+            "value": "cbncloudvnet"
+        },
+        "networkInterfaceName": {
+            "value": "peppiadmin45"
+        },
+        "networkSecurityGroupName": {
+            "value": "cbncloudnsg"
+        },
+        "adminPassword": {
+            "value": "Ubuntu1234567*&"
+        },
+        "storageAccountName": {
+            "value": "cbncloudstorage"
+        },
+        "storageAccountType": {
+            "value": "Standard_LRS"
+        },
+        "diagnosticsStorageAccountName": {
+            "value": "cbncloudstorage567"
+        },
+        "diagnosticsStorageAccountType": {
+            "value": "Standard_LRS"
+        },
+        "diagnosticsStorageAccountId": {
+            "value": "Microsoft.Storage/storageAccounts/cbncloudstorage567"
+        },
+        "addressPrefix": {
+            "value": "10.0.1.0/24"
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "subnetPrefix": {
+            "value": "10.0.1.0/24"
+        },
+        "publicIpAddressName": {
+            "value": "cbncloudip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        }
+    }
+}
