@@ -36,7 +36,7 @@ Set-AzureRmCurrentStorageAccount `
   -Verbose
 ```
 
-- **# Create a storage container to store the virtual machine image**
+- **Create a storage container to store the virtual machine image**
 ```ps1
 $containerName = "osdisk$(Get-Random)"
 $container = New-AzureStorageContainer `
@@ -44,6 +44,37 @@ $container = New-AzureStorageContainer `
   -Permission Blob `
   -Verbose
 ```
+
+- **Login With Principal**
+```ps1
+# login azurestack
+$userId = "contoso@contoso.onmicrosoft.com"
+$password = ("contosoadadeh12398!78*" | ConvertTo-SecureString -AsPlainText -Force)
+$tenant_id = "988588549923-094028523-kiodfsgi-023423941";
+
+#Set the powershell credential object
+$cred = New-Object -TypeName System.Management.Automation.PSCredential($userId ,$password)
+Login-AzureRmAccount -Environment "AzureStackUser" -Credential $cred -TenantId $tenant_id
+```
+
+
+- **Login With load yang file**
+```ps1
+## login environment azurestack
+Login-AzureRmAccount -Environment "AzureStackUser"
+
+# Now save your context locally (Force will overwrite if there)
+$path = "E:\ProfileAzureCloud.ctx"
+Save-AzureRmContext -Path $path -Force
+
+# load your login 
+$path = "E:\ProfileAzureCloud.ctx"
+Import-AzureRmContext -Path $path
+```
+
+## Prerequisite 
 - Full Scripting Create vm no template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/powershell/create-template-no-template.ps1)
 
 - Full Scripting Installasi PowerShell template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1)
+
+
