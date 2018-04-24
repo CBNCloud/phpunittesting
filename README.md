@@ -129,6 +129,11 @@ $cred = New-Object -TypeName System.Management.Automation.PSCredential($userId ,
 Login-AzureRmAccount -Environment "AzureStackUser" -Credential $cred -TenantId $tenant_id
 ```
 
+if you don't know tenant_id, you can this code to powershell 
+```bash
+$tenant_id = Get-AzureRmSubscription
+```
+
 ## Login, Save, and Load Your Profile
 ```bash
 # login azurestack
@@ -139,6 +144,11 @@ $path = "E:\ProfileAzureStack.ctx"
 Save-AzureRmContext -Path $path -Force
 ```
 
+if you have a file ProfileAzureStack already occupied, you can load this file
+```bash 
+$path = "E:\ProfileAzureStack.ctx"
+Import-AzureRmContext -Path $path
+```
 ## Create Resource Group
 
 ```bash
