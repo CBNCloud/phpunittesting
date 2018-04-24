@@ -16,9 +16,7 @@ This sample demonstrates cmdlet to create VM on Azure Stack.
       * [Login and Save Your Profile](#service-principal)
    * [Create Resource Group](#create-resource-group)
    * [Create Storage Account Name And The Storage Account SKU](#create-storage-account-name-and-the-storage-account-sku)
-   * [Create a storage container to store the virtual machine image](#create-a-storage-container-to-store-the-virtual machine-image)
-   
-   
+   * [Create A Storage Container To Store The Virtual Machine Image](#create-storage-account-name-and-the-storage-account-sku)
 <!--te-->
 
 ## Install
@@ -124,20 +122,7 @@ $cred = New-Object -TypeName System.Management.Automation.PSCredential($userId ,
 Login-AzureRmAccount -Environment "AzureStackUser" -Credential $cred -TenantId $tenant_id
 ```
 
-```bash
-# Install the AzureRM.Bootstrapper module. Select Yes when prompted to install NuGet 
-Install-Module `
-  -Name AzureRm.BootStrapper
-
-# Install and import the API Version Profile required by Azure Stack into the current PowerShell session.
-Use-AzureRmProfile `
-  -Profile 2017-03-09-profile -Force
-
-Install-Module `
-  -Name AzureStack `
-  -RequiredVersion 1.2.11
-```
-## Login and Save Your Profile
+## Login, Save, and Load Your Profile
 ```bash
 # login azurestack
 Login-AzureRmAccount -Environment "AzureStackUser"
@@ -183,8 +168,8 @@ Set-AzureRmCurrentStorageAccount `
   -Verbose
 ```
 
-## Create a storage container to store the virtual machine image
-```ps1
+## Create A Storage Container To Store The Virtual Machine Image
+```bash
 $containerName = "osdisk$(Get-Random)"
 $container = New-AzureStorageContainer `
   -Name $containerName `
