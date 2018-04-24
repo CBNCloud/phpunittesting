@@ -107,4 +107,7 @@ Import-AzureRmContext -Path $path
 
 - Full Scripting Installasi PowerShell template azurestack [https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/installasi/power.ps1)
 
+## Bonus
+- Full Scripting Create vm no template Azurecloud [https://github.com/CBNCloud/template-azure-stack/blob/master/azurecloud/azurecloud.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/azurecloud/azurecloud.ps1)
+
 
