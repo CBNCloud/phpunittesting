@@ -68,7 +68,7 @@ Start-Sleep -s 10
 Write-Output "Assigning the Contributor role to the service principal..."
 New-AzureRmRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName $azureAdApplication.ApplicationId
  
-# The Application ID (aka Client ID) will be Required When Creating the Account in Octopus Deploy
+# The Application ID (aka Client ID) will be Required When Creating the Account in CBNCloud Deploy
 Write-Output "Client ID: $($azureAdApplication.ApplicationId)"
 ```
 
