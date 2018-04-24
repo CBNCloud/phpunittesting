@@ -8,6 +8,7 @@ This sample demonstrates cmdlet to create VM on Azure Stack.
 <!--ts-->
    * [Install](#install)
    * [Download Module Azurestack Tools](#download-module-azurestack-tools)
+   * [Set Execution Policy](#set-execution-policy)
    * [Set Environment](#set-environment)
    * [Login](#login)
       * [Service Principal](#service-principal)
@@ -53,6 +54,12 @@ Add-AzureRMEnvironment `
 Set-AzureRmEnvironment `
   -Name "AzureStackUser" `
   -GraphAudience $GraphAudience
+```
+
+## Set Execution Policy
+
+```bash
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 ```
 
 ## Download Module Azurestack Tools
