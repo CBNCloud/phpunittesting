@@ -1,4 +1,4 @@
-# How to create Azure Virtual Machine (VM) by PowerShell
+# How to create Azure Stack Virtual Machine (VM) by PowerShell
 
 ## Introduction
 This sample demonstrates cmdlet to create VM on Azure Stack.
