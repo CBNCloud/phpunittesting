@@ -3,50 +3,88 @@
 ## Introduction
 This sample demonstrates cmdlet to create VM on Azure Stack.
 
-## Script
-- **Creating Resource Group**
-```ps1
-# Create variables to store the location and resource group names.
-$location = "jkt"
-$ResourceGroupName = "myResourceGroup"
- 
-New-AzureRmResourceGroup `
-  -Name $ResourceGroupName `
-  -Location $location `
-  -Verbose
+## Table of contents
+
+<!--ts-->
+   * [Install](#install)
+   * [Download Module Azurestack Tools](#download-module-azurestack-tools)
+   * [Set Environment](#set-environment)
+   * [Login](#login)
+      * [Service Principal](#service-principal)
+         * [Create Principal](#create-principal)
+         * [Login With Principal](#login-with-principal)
+      * [Login and Save Your Profile](#service-principal)
+   * [Create Resource Group](#create-resource-group)
+   * [Create Storage Account Name And The Storage Account SKU](#create-storage-account-name-and-the-storage-account-sku)
+   * [Create a storage container to store the virtual machine image](#create-a-storage-container-to-store-the-virtual machine-image)
+   
+   
+<!--te-->
+
+## Install
+
+```bash
+# Install the AzureRM.Bootstrapper module. Select Yes when prompted to install NuGet 
+Install-Module `
+  -Name AzureRm.BootStrapper
+
+# Install and import the API Version Profile required by Azure Stack into the current PowerShell session.
+Use-AzureRmProfile `
+  -Profile 2017-03-09-profile -Force
+
+Install-Module `
+  -Name AzureStack `
+  -RequiredVersion 1.2.11
 ```
 
-- **Create variables to store the storage account name and the storage account SKU information**
-```ps1
+## Set Environment
 
-$StorageAccountName = "mystorageaccount5"
-$SkuName = "Standard_LRS"
- 
-# Create a new storage account
-$StorageAccount = New-AzureRMStorageAccount `
-  -Location $location `
-  -ResourceGroupName $ResourceGroupName `
-  -Type $SkuName `
-  -Name $StorageAccountName `
-  -Verbose
- 
-Set-AzureRmCurrentStorageAccount `
-  -StorageAccountName $storageAccountName `
-  -ResourceGroupName $resourceGroupName `
-  -Verbose
+```bash
+# For Azure Stack development kit, this value is set to https://management.local.azurestack.external. To get this value for Azure Stack integrated systems, contact your service provider.
+$ArmEndpoint = "https://management.jkt.cbncloud.co.id"
+
+# For Azure Stack development kit, this value is set to https://graph.windows.net/. To get this value for Azure Stack integrated systems, contact your service provider.
+$GraphAudience = "https://graph.windows.net"
+
+# Register an AzureRM environment that targets your Azure Stack instance
+Add-AzureRMEnvironment `
+  -Name "AzureStackUser" `
+  -ArmEndpoint $ArmEndpoint
+
+# Set the GraphEndpointResourceId value
+Set-AzureRmEnvironment `
+  -Name "AzureStackUser" `
+  -GraphAudience $GraphAudience
 ```
 
-- **Create a storage container to store the virtual machine image**
-```ps1
-$containerName = "osdisk$(Get-Random)"
-$container = New-AzureStorageContainer `
-  -Name $containerName `
-  -Permission Blob `
-  -Verbose
-```
+## Download Module Azurestack Tools
 
-- **Create Principal must azurecloud [https://portal.azure.com](https://portal.azure.com)**
-```ps1
+```bash
+# Change directory to the root directory. 
+cd \
+
+# Download the tools archive.
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
+invoke-webrequest `
+  https://github.com/Azure/AzureStack-Tools/archive/master.zip `
+  -OutFile master.zip
+
+# Expand the downloaded files.
+expand-archive master.zip `
+  -DestinationPath . `
+  -Force
+
+# Change to the tools directory.
+cd AzureStack-Tools-master
+```
+## Login
+
+## Service Principal
+
+if you don't have service principal, you must create a service pricinpal in azurecloud. this is simple code create principal with power shell.
+
+## Create Principal
+```bash
 # Create an CBNCloud Deploy Application in Active Directory
 Write-Output "Creating AAD application..."
 $password = '$password&*';
@@ -72,8 +110,10 @@ New-AzureRmRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName 
 Write-Output "Client ID: $($azureAdApplication.ApplicationId)"
 ```
 
-- **Login With Principal**
-```ps1
+## Login With Principal
+if you have service principal
+
+```bash 
 # login azurestack
 $userId = "contoso@contoso.onmicrosoft.com"
 $password = ("contosoadadeh12398!78*" | ConvertTo-SecureString -AsPlainText -Force)
@@ -84,20 +124,74 @@ $cred = New-Object -TypeName System.Management.Automation.PSCredential($userId ,
 Login-AzureRmAccount -Environment "AzureStackUser" -Credential $cred -TenantId $tenant_id
 ```
 
+```bash
+# Install the AzureRM.Bootstrapper module. Select Yes when prompted to install NuGet 
+Install-Module `
+  -Name AzureRm.BootStrapper
 
-- **Login With load your file**
-```ps1
-## login environment azurestack
+# Install and import the API Version Profile required by Azure Stack into the current PowerShell session.
+Use-AzureRmProfile `
+  -Profile 2017-03-09-profile -Force
+
+Install-Module `
+  -Name AzureStack `
+  -RequiredVersion 1.2.11
+```
+## Login and Save Your Profile
+```bash
+# login azurestack
 Login-AzureRmAccount -Environment "AzureStackUser"
 
 # Now save your context locally (Force will overwrite if there)
-$path = "E:\ProfileAzureCloud.ctx"
+$path = "E:\ProfileAzureStack.ctx"
 Save-AzureRmContext -Path $path -Force
-
-# load your login 
-$path = "E:\ProfileAzureCloud.ctx"
-Import-AzureRmContext -Path $path
 ```
+
+## Create Resource Group
+
+```bash
+
+# Create variables to store the location and resource group names.
+$location = "jkt"
+$ResourceGroupName = "myResourceGroup"
+ 
+New-AzureRmResourceGroup `
+  -Name $ResourceGroupName `
+  -Location $location `
+  -Verbose
+
+```
+
+## Create Storage Account Name And The Storage Account SKU
+
+```ps1
+
+$StorageAccountName = "mystorageaccount5"
+$SkuName = "Standard_LRS"
+ 
+# Create a new storage account
+$StorageAccount = New-AzureRMStorageAccount `
+  -Location $location `
+  -ResourceGroupName $ResourceGroupName `
+  -Type $SkuName `
+  -Name $StorageAccountName `
+  -Verbose
+ 
+Set-AzureRmCurrentStorageAccount `
+  -StorageAccountName $storageAccountName `
+  -ResourceGroupName $resourceGroupName `
+  -Verbose
+```
+
+## Create a storage container to store the virtual machine image
+```ps1
+$containerName = "osdisk$(Get-Random)"
+$container = New-AzureStorageContainer `
+  -Name $containerName `
+  -Permission Blob `
+  -Verbose
+```
+
 
 ## Prerequisite 
 
