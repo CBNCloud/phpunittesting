@@ -58,7 +58,7 @@ Login-AzureRmAccount -Environment "AzureStackUser" -Credential $cred -TenantId $
 ```
 
 
-- **Login With load yang file**
+- **Login With load your file**
 ```ps1
 ## login environment azurestack
 Login-AzureRmAccount -Environment "AzureStackUser"
