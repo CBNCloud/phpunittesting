@@ -45,7 +45,7 @@ $container = New-AzureStorageContainer `
   -Verbose
 ```
 
-- **Create Principal must azurecloud**
+- **Create Principal must azurecloud[https://portal.azure.com](https://portal.azure.com)**
 ```ps1
 # Create an CBNCloud Deploy Application in Active Directory
 Write-Output "Creating AAD application..."
