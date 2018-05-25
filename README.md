@@ -206,4 +206,7 @@ $container = New-AzureStorageContainer `
 ## Bonus
 - Full Scripting Create vm no template Azurecloud [https://github.com/CBNCloud/template-azure-stack/blob/master/azurecloud/azurecloud.ps1](https://github.com/CBNCloud/template-azure-stack/blob/master/azurecloud/azurecloud.ps1)
 
+## License
+
+The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
